@@ -1,5 +1,5 @@
 # source: https://eu1.prisma.sh/arvind/backend/dev
-# timestamp: Fri Dec 14 2018 01:33:19 GMT+0530 (IST)
+# timestamp: Sat Dec 15 2018 01:02:14 GMT+0530 (IST)
 
 type AggregateUser {
   count: Int!
@@ -498,4 +498,5 @@ input UserWhereInput {
 
 input UserWhereUniqueInput {
   id: ID
+  username: String
 }
