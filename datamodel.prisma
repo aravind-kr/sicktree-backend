@@ -1,5 +1,10 @@
 type User {
   id: ID! @unique
-  name: String!
-  accessToken: String!
+  username: String!
+  full_name: String!
+  bio: String
+  website: String
+  profile_picture: String!
+  is_business: Boolean!
+  access_token: String!
 }
