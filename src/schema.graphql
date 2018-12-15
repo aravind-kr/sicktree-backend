@@ -1,7 +1,12 @@
 # import * from './generated/prisma.graphql'
 
+type SuccessMessage {
+  message: String
+}
+
 type Mutation {
-    signup: User!
+    signup: User!,
+    signout: String
 }
 
 type Query {
