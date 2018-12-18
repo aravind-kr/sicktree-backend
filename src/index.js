@@ -35,11 +35,36 @@ server.express.use(cookieParser());
 // });
 
 // decode the JWT so we can get the user Id on each request
+
+// server.express.use((req, res, next) => {
+//     if(req.headers && req.headers['content-type'] === 'text/plain;charset=UTF-8') {
+//         console.log('text/plain;charset=UTF-8')
+//         bodyParser.text()
+//     }
+//     next();
+// });
+
+// server.express.use(bodyParser.text())
+
+// server.express.use((req, res, next) => {
+//     req.headers["content-type"] = "application/json";
+//     console.log('*****',typeof req.body);
+//     next();
+// })
+
+server.express.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:7777');
+    res.header(
+        'Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, Content-Type, Accept'
+    );
+    next();
+});
+
 server.express.use((req, res, next) => {
     const { token } = req.cookies;
     if (token) {
         const { userId } = jwt.verify(token, process.env.APP_SECRET);
-        
         // put the userId onto the req for future requests to access
         req.userId = userId;
     }
@@ -95,13 +120,13 @@ server.express.get('/dashboard', async (req, res) => {
                     website: result.user.website,
                 },
                 update: {
-                  access_token: result.access_token,
-                  profile_picture: result.user.profile_picture,
-                  full_name: result.user.full_name,
-                  bio: result.user.bio,
-                  is_business: result.user.is_business,
-                  website: result.user.website,
-              },
+                    access_token: result.access_token,
+                    profile_picture: result.user.profile_picture,
+                    full_name: result.user.full_name,
+                    bio: result.user.bio,
+                    is_business: result.user.is_business,
+                    website: result.user.website,
+                },
             },
             '{ id, username }'
         );
@@ -116,16 +141,15 @@ server.express.get('/dashboard', async (req, res) => {
         res.redirect('http://localhost:7777/dashboard');
     } catch (error) {
         console.log(error);
+        res.redirect('http://localhost:7777/');
     }
-
-    // app.render('/test')
 });
 
 server.start(
     {
         cors: {
             credentials: true,
-            origin: process.env.FRONTEND_URL,
+            origin: [process.env.FRONTEND_URL],
         },
     },
     deets => {
