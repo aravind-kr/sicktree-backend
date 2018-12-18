@@ -27,8 +27,7 @@ const mutations = {
         console.log('comes here');
 
         ctx.response.clearCookie('token');
-        // return { message: 'Goodbye!' }
-        return "something";
+        return { message: 'Goodbye!' }
     },
 };
 

@@ -6,7 +6,7 @@ type SuccessMessage {
 
 type Mutation {
     signup: User!,
-    signout: String
+    signout: SuccessMessage
 }
 
 type Query {
